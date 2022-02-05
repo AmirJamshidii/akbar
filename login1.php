@@ -6,10 +6,10 @@ require('./header.php');
 $error1 = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	if (isset($_post['username']) and $_post['username'] - '') {
+	if (isset($_post['username']) && $_post['username'] - '') {
 		$error1['username'] = "username not found";
 	}
-	if (isset($_post['password']) and $_post['password'] = '') {
+	if (isset($_post['password']) && $_post['password'] = '') {
 		$error1['password'] = "password not found";
 	}
 	if (strlen($_post['password'] < 8)) {
