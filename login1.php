@@ -1,6 +1,8 @@
 <?php
 require('./header.php');
+?>
 
+<?php
 $error1 = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -30,10 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			header('Location: ./login.php');
 		}
 	}
-
-
-
-
 ?>
 
 <div id="pageContent">
@@ -62,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							</div>
 							<div style="color:red;padding-left:5px;">
 								
-<?php
+						<?php
 						if ($error1['username'] == true) {
 							echo $error1['username'];
 						}
