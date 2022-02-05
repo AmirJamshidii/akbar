@@ -1,5 +1,9 @@
-﻿<?php
+<?php
 require('./header.php');
+?>
+
+
+<?php
 $error = [];
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -31,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		} else {
 			$insert_query = "INSERT INTO users (username, password,admin, status ) VALUES ('$username', '$password', 0 , 1)";
 			if ($database->dbCon->query($insert_query) === TRUE) {
-				header("Location:login.php");
+				header('Location: ./login.php');
 			}
 		}
 	}
@@ -41,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 <div id="pageContent">
 	<div class="container offset-14">
-		<h1 class="block-title large">Create an Account</h1>
+		<h1 class="block-title large">Login to Account</h1>
 		<div class="row">
 			<div class="col-sm-8 col-sm-push-2 col-lg-6 col-lg-push-3">
 				<div class="login-form-box">
