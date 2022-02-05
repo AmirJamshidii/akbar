@@ -23,19 +23,15 @@ if (!count($error)) {
     require('./connection.php');
     $username = $_post['username'];
     $password = $_post['password'];
-    $exist = $database->dbcon->query('SELECT COUNT(*) AS X FROM users WHERE username="' . $username . '"');
+    $exist = $database->dbcon->query('SELECT COUNT(*) AS X FROM users WHERE username="' . $username . '" AND password= "' . $password . '"');
     if (intval($exist['X'])) {
-        $exist = $database->$dbcon->query('SELECT password AS Y FROM users WHERE username="' . $username . '"');
-        if ($password === $exist['Y']) {
             echo "welcome back";
             header('location: ./index');
-        } else {
-            $error['server']['password'] = "password is wrong";
         }
     } else {
         $error['server']['username'] = "username not found";
     }
-}
+
 ?>
 
 <div id="pageContent">
