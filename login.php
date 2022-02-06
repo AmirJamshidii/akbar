@@ -3,8 +3,9 @@ require('./header.php');
 ?>
 <!-- ---------------- Validation --------------- -->
 <?php
+require('./connection.php');
 $error = [];
-if ($_server['server_methode'] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['username']) && $_POST['username'] == '') {
         $error['usename'] = "username is empty";
     }
@@ -14,26 +15,23 @@ if ($_server['server_methode'] == "POST") {
     if (count($_POST['password']) < 8) {
         $error['password']['short'] = "password is too short";
     }
-}
 
-?>
-<!-- ---------------- Login Logic -------------------- -->
-<?php
-if (!count($error)) {
-    require('./connection.php');
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $exist = $database->dbcon->query('SELECT COUNT(*) AS X FROM users WHERE username="' . $username . '" AND password= "' . $password . '"');
-    if (intval($exist['X'])) {
+    //  ---------------- Login Logic --------------------
+    if (!count($error)) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $exist = $database->dbcon->query('SELECT COUNT(*) AS X FROM users WHERE username="' . $username . '" AND password= "' . $password . '"');
+        if (intval($exist['X'])) {
             echo "welcome back";
             header('location: ./index');
         }
     } else {
         $error['server']['username'] = "username not found";
     }
+}
 
 ?>
+
 
 <div id="pageContent">
     <div class="container offset-14">
@@ -62,11 +60,13 @@ if (!count($error)) {
                                 <input type="text" name="username" id="LoginFormName1" class="form-control" placeholder="Name" value="amir">
                             </div>
                             <div style="color:red;padding-left:5px;">
+                                <?php
                                 if (count($error) > 0) {
-                                if (isset($error['username'])) {
-                                echo $error['username'];
+                                    if (isset($error['username'])) {
+                                        echo $error['username'];
+                                    }
                                 }
-                                }
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
