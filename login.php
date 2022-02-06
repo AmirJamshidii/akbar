@@ -5,13 +5,13 @@ require('./header.php');
 <?php
 $error = [];
 if ($_server['server_methode'] == "POST") {
-    if (isset($_post['username']) && $_post['username'] == '') {
+    if (isset($_POST['username']) && $_POST['username'] == '') {
         $error['usename'] = "username is empty";
     }
-    if (isset($_post['password']) && $_post['password'] == '') {
+    if (isset($_POST['password']) && $_POST['password'] == '') {
         $error['password']['empty'] = "password is empty";
     }
-    if (count($_post['password']) < 8) {
+    if (count($_POST['password']) < 8) {
         $error['password']['short'] = "password is too short";
     }
 }
@@ -21,8 +21,9 @@ if ($_server['server_methode'] == "POST") {
 <?php
 if (!count($error)) {
     require('./connection.php');
-    $username = $_post['username'];
-    $password = $_post['password'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
     $exist = $database->dbcon->query('SELECT COUNT(*) AS X FROM users WHERE username="' . $username . '" AND password= "' . $password . '"');
     if (intval($exist['X'])) {
             echo "welcome back";
